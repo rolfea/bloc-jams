@@ -6,11 +6,9 @@ var animatePoints = function() {
     pointsArray[index].style.transform = "scaleX(1) translateY(0)";
     pointsArray[index].style.msTransform = "scaleX(1) translateY(0)";
     pointsArray[index].style.WebkitTransform = "scaleX(1) translateY(0)";
-  }
+  };
   
-  for (var i = 0; i < pointsArray.length; i++) {
-    revealPoint(i);
-  }
+  forEach(pointsArray, revealPoint);
 };
 
 window.onload = function() {
