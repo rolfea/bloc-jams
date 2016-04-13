@@ -28,6 +28,21 @@ var albumMarconi = {
   ]
 };
 
+var albumMagritte = {
+  title: 'The Pipes',
+  artist: 'Rene Magritte',
+  label: 'Surrealism',
+  year: '1898',
+  albumArtUrl: 'assets/images/album_covers/01.png',
+  songs: [
+    { title: 'Pipes', duration: '4:26' },
+    { title: 'Apples', duration: '3:14' },
+    { title: 'Top Hats', duration: '5:01' },
+    { title: 'Birds', duration: '3:21' },
+    { title: 'Windows', duration: '2:15' }
+  ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
   var template = 
       '<tr class="album-view-song-item">'
@@ -59,6 +74,30 @@ var setCurrentAlbum = function(album) {
   }
 };
 
+// Event listener for assignment
+
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
+  
+  albumsArray = [albumPicasso, albumMagritte, albumMarconi];
+  var i = 0;
+  albumImage.addEventListener("click", function(event) {
+    i++;
+    if (i < albumsArray.length) {
+      setCurrentAlbum(albumsArray[i]);
+    } else {
+      i = 0;
+      setCurrentAlbum(albumsArray[i]);
+    }
+    console.log(i);
+  });
 };
+
+
+
