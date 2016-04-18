@@ -59,23 +59,18 @@ var setCurrentAlbum = function(album) {
   }
 };
 
-var findParentByClassName = function(element, targetClassName) {
-  // checks document to see if parent exists
-  if !document.querySelector(targetClassName) {
-    alert("No parent found");
-  }
-  
+var findParentByClassName = function(element, targetClass) {
   if (element) {
     var currentParent = element.parentElement;
-    while (currentParent.className != targetClassName && curentParent.parentElement != null) {
+    
+    while (currentParent.className != targetClass) {
       currentParent = currentParent.parentElement;
+      if (currentParent == null) {
+      alert("Parent was not found");
+      break;
+      }
     }
-    // if loops up to document node, the null return triggers alert
-    if (currentParent === null) {
-      alert("No parent found with that class name");
-    } else {
-      return currentParent;
-    }
+    return currentParent;
   }
 };
 
@@ -150,6 +145,7 @@ window.onload = function() {
     
     songRows[i].addEventListener('click', function(event) {
       clickHandler(event.target);
+      console.log(event.target);
     });
   }
 };
