@@ -3,7 +3,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       '<tr class="album-view-song-item">'
     + ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
     + ' <td class="song-item-title">' + songName + '</td>'
-    + ' <td class="song-item-duration">' + songLength + '</td>'
+    + ' <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
     + '</tr>'
     ;
   
@@ -65,8 +65,6 @@ var createSongRow = function(songNumber, songName, songLength) {
   $row.find('.song-item-number').click(clickHandler);
   $row.hover(onHover, offHover);
   
-  console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
-  
   return $row;
 };
 
@@ -96,8 +94,10 @@ var updateSeekBarWhileSongPlays = function() {
     currentSoundFile.bind('timeupdate', function(event) {
       var seekBarFillRatio = this.getTime() / this.getDuration();
       var $seekBar = $('.seek-control .seek-bar');
+      var currentTime = buzz.toTimer(this.getTime());
       
       updateSeekPercentage($seekBar, seekBarFillRatio);
+      setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
     });
   }
 };
@@ -222,6 +222,7 @@ var updatePlayerBarSong = function() {
   $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
   
+  setTotalTimeInPlayerBar(currentSongFromAlbum.length);
 };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
@@ -263,6 +264,28 @@ var seek = function(time) {
 var setVolume = function(volume) {
   if (currentSoundFile) {
     currentSoundFile.setVolume(volume);
+  }
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+  var $currentTimeElement = $('.seek-control .current-time');
+  $currentTimeElement.text(currentTime);
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+  var $totalTime = $('.seek-control .total-time');
+  $totalTime.text(totalTime);
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var secondsInNumberForm = parseFloat(timeInSeconds);
+  var minutes = Math.floor(secondsInNumberForm / 60);
+  var remainingSeconds = secondsInNumberForm - (minutes * 60);
+  if (remainingSeconds < 10) {
+    return minutes + ":" + 0 + parseInt(remainingSeconds);
+  }
+  else {
+    return minutes + ":" + parseInt(remainingSeconds);
   }
 };
 
