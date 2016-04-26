@@ -16,7 +16,8 @@
 .player-bar a,
 .player-bar a:hover {
   color: white;
-  cursor: pocursor: text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .player-bar .container {
@@ -120,7 +121,10 @@ seek-bar {
   cursor: pointer;
   -webkit-transition: all 100ms ease-in-out;
     -moz-transition: all 100ms ease-in-out;
-      transition: all 100ms ease-in-out;
+      transition: width 100ms ease-in-out,
+                  height 100ms ease-in-out,
+                  margin-top 100ms ease-in-out,
+                  margin-left 100ms ease-in-out;
 }
 
 .seek-bar:hover .thumb {
