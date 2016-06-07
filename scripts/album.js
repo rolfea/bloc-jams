@@ -24,7 +24,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       updateSeekBarWhileSongPlays();
       
       var $volumeFill = $('.volume .fill');
-      var $volumeThumb = $('volume .thumb');
+      var $volumeThumb = $('.volume .thumb');
       $volumeFill.width(currentVolume + '%');
       $volumeThumb.css({left: currentVolume + '%'});
       
